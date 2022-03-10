@@ -44,8 +44,9 @@ app.use(function(req, res, next) {
     next();
 });
 // Routes
-app.use(express.static('../config'));
 app.use('/', require('./routes/index.js'));
 app.use('/users', require('./routes/users.js'));
 
 app.listen('4444', console.log("Server Online!"));
+
+// http://localhost:4444

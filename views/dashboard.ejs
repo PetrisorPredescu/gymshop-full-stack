@@ -1,15 +1,5 @@
-const express = require('express');
-const router = express.Router();
-const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
+<h1 class="mt-4">Dashboard</h1>
+<p class="lead mb-3">Welcome <%= user.name %></p>
+<a href="/users/logout" class="btn btn-secondary">Logout</a>
 
-// Welcome Page
-router.get('/', forwardAuthenticated, (req, res) => res.render('welcome'));
-
-// Dashboard
-router.get('/dashboard', ensureAuthenticated, (req, res) =>
-  res.render('dashboard', {
-    user: req.user
-  })
-);
-
-module.exports = router;
+<div> Hello world</div>
