@@ -10,15 +10,13 @@ const app = express();
 require('./config/passport')(passport);
 const db = require('./config/keys').mongoURI;
 
-mongoose.connect(db, {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
-  })
+//MongoDB test connection
+mongoose.connect(db,{ useNewUrlParser: true ,useUnifiedTopology: true})
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
+
+//ejs config
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
 // Express body parser
