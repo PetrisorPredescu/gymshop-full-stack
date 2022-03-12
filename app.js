@@ -46,7 +46,8 @@ app.use(function(req, res, next) {
 // Routes
 app.use('/', require('./routes/index.js'));
 app.use('/users', require('./routes/users.js'));
-
+app.use('/config', express.static('./config'));
+app.use('/pictures', express.static('./pictures'));
 app.listen('4444', console.log("Server Online!"));
 
 // http://localhost:4444

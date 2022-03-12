@@ -1,0 +1,39 @@
+* {
+    background-color: rgb(161, 146, 146)!important;
+}
+
+h1 { color: black;
+    text-align: center;
+}
+ 
+p { color: black;
+}
+#logout {
+    color: red; font-size: 2em;
+}
+#logout:hover{
+    color: purple;
+}
+#logout:focus{
+    color: green;
+}
+.main {
+    text-align: center;
+}
+/* .main div img {
+    height: 200px;
+    width: 200px;
+} */
+#myFirstPic {
+    height: auto;
+    width: 400px;
+}
+.galleryPic  {
+    display: flex;
+}
+.galleryPic > p {
+    position: fixed;
+    height: 400px;
+    width: 400px;
+    background-image: url("/pictures/a88c12eebf8994ac86f17d4ba4b487a057517207.jpg");
+}
