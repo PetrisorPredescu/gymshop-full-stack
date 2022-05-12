@@ -25,9 +25,10 @@ app.use(express.urlencoded({ extended: true }));
 // Express session
 app.use(
   session({
-    secret: 'din12eodn21odnfoiu12bnduio189d23hf9723pf',
+    secret: 't34tg4gh6675ik6f232d32f45yg56uh4j6',
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours, a number representing the milliseconds from Date.now() for expiry
   })
 );
 // Passport middleware
@@ -48,6 +49,13 @@ app.use('/', require('./routes/index.js'));
 app.use('/users', require('./routes/users.js'));
 app.use('/config', express.static('./config'));
 app.use('/pictures', express.static('./pictures'));
-app.listen('4444', console.log("Server Online!"));
 
-// http://localhost:4444
+
+app.all('*', (req, res) => {
+  res.render("./page_not_found.ejs")
+})
+
+const PORT = process.env.PORT || 4444;
+app.listen(PORT, console.log(`Server running on ${PORT}`));
+
+// http://localhost:44444

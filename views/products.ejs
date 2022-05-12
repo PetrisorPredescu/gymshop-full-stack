@@ -1,0 +1,60 @@
+<%- include('./partials/header') %>
+
+
+<%- include ('./partials/messages') %>
+
+<div class="productList card text-center">
+    <% counter=1 %>
+        <% products.forEach(function(data) { %>
+            <div class="productListContainer" onclick="document.getElementById('hiddenModal').classList.toggle('visible');
+                    document.getElementById('name').value=document.getElementById('p<%= counter %>').innerHTML;" >
+
+
+                <div class="product"><img src="/pictures/<%=data.photo%>" class="productPicture"></div>
+
+                <p style="font-size: 1.4em;font-weight: bold; word-break: break-word;" id="p<%= counter %>"><%= data.name %></p>
+
+                <div style="font-weight: bold; transform: translateY(-20px);">£<%= data.price %></div>
+
+            </div>
+
+            <% counter++ } )  %>
+
+</div>
+
+<div class="hiddenModal" id="hiddenModal" style="visibility: hidden">
+    <button type="button" id="closeShopModal"
+        onclick="document.getElementById('hiddenModal').classList.toggle('visible')">X</button><br><br>
+    <form method="post">
+        <input name="name" id="name" type="text" style="text-align: center" readonly><br>
+        <input name="qty" id="qty" type="number" placeholder="Quantity" value="1" style="text-align: center"><br>
+
+        <input type="text" name="customer" placeholder="full name" style="margin-top: 1em;"
+            onkeypress="return /[a-z' ']/i.test(event.key)"  value="<%=user.name%>"><br>
+        <input type="text" name="address" placeholder="full address"><br>
+        <input type="email" name="email" placeholder="email" value="<%=user.email%>"><br><br>
+        <input type="text" name="cardnumber" placeholder="cardnumber 1111111111111111" maxlength="16"
+            onkeypress="return /[0-9]/i.test(event.key)"><br>
+        <input type="text" name="expirydate" placeholder="expirydate 11/11" maxlength="5"><br>
+        <input type="text" name="cvv" placeholder="cvv 111" maxlength="3"
+            onkeypress="return /[0-9]/i.test(event.key)"><br><br>
+
+        <input type="submit" value="Submit" class="px-5"><br>
+    </form>
+</div>
+
+
+<div class="contactDetails mt-4 mb-5">
+    <a href="/" class="btn btn-secondary btn-block">GymShop</a>
+    <a href="/contact" class="btn btn-secondary btn-block">Contact</a>
+</div>
+
+<script>
+    if(window.location.pathname == "/products") {
+        document.addEventListener('keydown', function(event){
+            if(event.key === "Escape"){
+                document.getElementById('hiddenModal').classList.remove('visible')
+            } 
+        })
+    }
+</script>
