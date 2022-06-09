@@ -2,13 +2,10 @@ const express = require('express');
 const router = express.Router();
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 const { Double } = require('mongodb');
-<<<<<<< HEAD
-
-=======
-const bcrypt = require('bcryptjs');
->>>>>>> 0a1a5cb7eea1742cdd374ec7b05fb216572c03f5
 const mongoose = require('mongoose');
-const db = require('../config/keys').mongoURI;
+const dotenv = require('dotenv');
+dotenv.config();
+const db = process.env.mongoURI;
 var ObjectId = require('mongodb').ObjectID;
 
 
@@ -32,11 +29,7 @@ router.get('/products', (req, res) => //, ensureAuthenticated
 
   mongoose.createConnection(db, { useNewUrlParser: true, useUnifiedTopology: true }, (err, db) => {
     if (err) { console.log(err) } else {
-<<<<<<< HEAD
       db.collection("products").find().sort({ "price":1}).toArray(function (err, result) {
-=======
-      db.collection("products").find().sort({ "price": 1 }).toArray(function (err, result) {
->>>>>>> 0a1a5cb7eea1742cdd374ec7b05fb216572c03f5
         if (err) { console.log(err) } else {
           res.render('products', {
             user: req.user,
@@ -65,11 +58,7 @@ router.post('/products', (req, res) => //, ensureAuthenticated
         "cvv": cvv
       });
 
-<<<<<<< HEAD
       db.collection("products").find().sort({ "price":1}).toArray(function (err, result) {
-=======
-      db.collection("products").find().sort({ "price": 1 }).toArray(function (err, result) {
->>>>>>> 0a1a5cb7eea1742cdd374ec7b05fb216572c03f5
         if (err) { console.log(err) } else {
           res.render('products', {
             user: req.user,
@@ -108,11 +97,7 @@ router.get('/product_manager', (req, res) => //, ensureAuthenticated
 
   mongoose.createConnection(db, { useNewUrlParser: true, useUnifiedTopology: true }, (err, db) => {
     if (err) { console.log(err) } else {
-<<<<<<< HEAD
       db.collection("products").find().sort({ "price":1}).toArray(function (err, result) {
-=======
-      db.collection("products").find().sort({ "price": 1 }).toArray(function (err, result) {
->>>>>>> 0a1a5cb7eea1742cdd374ec7b05fb216572c03f5
         if (err) { console.log(err) } else {
           res.render('product_manager', {
             user: req.user,
@@ -132,11 +117,7 @@ router.post('/product_manager1', (req, res) => //, ensureAuthenticated
       delete req.body._id;
       db.collection("products").updateOne({ _id: new ObjectId(product_id) }, { $set: { "price": price, "name": name, "photo": photo } });  // yes i know its deprecated!!! but still works! :D
 
-<<<<<<< HEAD
       db.collection("products").find().sort({ "price":1}).toArray(function (err, result) {
-=======
-      db.collection("products").find().sort({ "price": 1 }).toArray(function (err, result) {
->>>>>>> 0a1a5cb7eea1742cdd374ec7b05fb216572c03f5
         if (err) { console.log(err) } else {
           res.render('product_manager', {
             user: req.user,
@@ -155,15 +136,9 @@ router.post('/product_manager2', (req, res) => //, ensureAuthenticated
     var { product_id, name, price, photo } = req.body;
     if (err) { console.log(err) } else {
 
-<<<<<<< HEAD
       db.collection("products").insertOne({ "price": Double(price), "name": name,"photo": photo } );  
 
       db.collection("products").find().sort({ "price":1}).toArray(function (err, result) {
-=======
-      db.collection("products").insertOne({ "price": Double(price), "name": name, "photo": photo });
-
-      db.collection("products").find().sort({ "price": 1 }).toArray(function (err, result) {
->>>>>>> 0a1a5cb7eea1742cdd374ec7b05fb216572c03f5
         if (err) { console.log(err) } else {
           res.render('product_manager', {
             user: req.user,
@@ -182,15 +157,9 @@ router.post('/product_manager3', (req, res) => //, ensureAuthenticated
     var { product_id, name, price } = req.body;
     if (err) { console.log(err) } else {
 
-<<<<<<< HEAD
       db.collection("products").deleteOne({ _id: new ObjectId(product_id) });  
 
       db.collection("products").find().sort({ "price":1}).toArray(function (err, result) {
-=======
-      db.collection("products").deleteOne({ _id: new ObjectId(product_id) });
-
-      db.collection("products").find().sort({ "price": 1 }).toArray(function (err, result) {
->>>>>>> 0a1a5cb7eea1742cdd374ec7b05fb216572c03f5
         if (err) { console.log(err) } else {
           res.render('product_manager', {
             user: req.user,
@@ -215,66 +184,8 @@ router.get('/orders_manager', (req, res) => //, ensureAuthenticated
             orders: result
           })
         }
-<<<<<<< HEAD
           
       })
     }
   }))
-=======
-
-      })
-    }
-  }))
-
-// my profile page get
-router.get('/myprofile', ensureAuthenticated, (req, res) => //, ensureAuthenticated
-  mongoose.createConnection(db, { useNewUrlParser: true, useUnifiedTopology: true }, (err, db) => {
-    if (err) { console.log(err) } else {
-      db.collection("users").find({ "email": req.user.email }).toArray(function (err, result) {
-        if (err) { console.log(err) } else {
-          res.render('myprofile', {
-            user: req.user,
-            profile: result[0]
-          })
-        }
-
-      })
-    }
-  }))
-// myprofile_update page post
-router.post('/myprofile_update', ensureAuthenticated, (req, res) =>
-  mongoose.createConnection(db, { useNewUrlParser: true, useUnifiedTopology: true }, (err, db) => {
-    var { userid, name, email, password } = req.body;
-    if (err) { console.log(err) } else {
-
-      bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(password, salt, (err, hashedPassword) => {
-          password = hashedPassword;
-          db.collection("users").updateOne({ _id: new ObjectId(userid) }, { $set: { "email": email, "name": name, "password": hashedPassword } }).then(
-            db.collection("users").find({ "email": req.user.email }).toArray(function (er, result) {
-              if (err) { console.log(err) } else {
-                res.render('myprofile', {
-                  user: req.user,
-                  profile: result[0]
-                })
-              }
-            })
-          )
-        })
-      })
-    }
-  }))
-// myprofile_delete page post
-router.post('/myprofile_delete', ensureAuthenticated, (req, res) =>
-  mongoose.createConnection(db, { useNewUrlParser: true, useUnifiedTopology: true }, (err, db) => {
-    var { userid} = req.body;
-    if (err) { console.log(err) } else {
-      db.collection("users").deleteOne({ _id: new ObjectId(userid) }).then(
-        res.render('dashboard'
-      ) )
-        
-
-    }
-  }))
->>>>>>> 0a1a5cb7eea1742cdd374ec7b05fb216572c03f5
 module.exports = router;

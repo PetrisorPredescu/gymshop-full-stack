@@ -4,6 +4,9 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 // Load User model
+const dotenv = require('dotenv');
+dotenv.config();
+const db = process.env.mongoURI;
 const User = require('../models/User');
 const { forwardAuthenticated } = require('../config/auth');
 

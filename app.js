@@ -8,7 +8,9 @@ const app = express();
 
 //passport config
 require('./config/passport')(passport);
-const db = require('./config/keys').mongoURI;
+const dotenv = require('dotenv');
+dotenv.config();
+const db = process.env.mongoURI;
 
 //MongoDB test connection
 mongoose.connect(db,{ useNewUrlParser: true ,useUnifiedTopology: true})
@@ -49,12 +51,6 @@ app.use('/', require('./routes/index.js'));
 app.use('/users', require('./routes/users.js'));
 app.use('/config', express.static('./config'));
 app.use('/pictures', express.static('./pictures'));
-<<<<<<< HEAD
-
-
-app.listen('4444', console.log("Server Online!"));
-=======
->>>>>>> 0a1a5cb7eea1742cdd374ec7b05fb216572c03f5
 
 
 app.all('*', (req, res) => {
