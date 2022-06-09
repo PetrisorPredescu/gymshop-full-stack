@@ -1,21 +1,47 @@
-<div class="main">
-    <h1 class="mt-4">Eden Gym</h1>
-    <p class="lead mb-3">Welcome <%= user.name %></p>
-    <a href="/users/logout" class="btn btn-secondary" id="logout">Logout</a>
-
-    <div> Hello world</div>
+<%- include('./partials/header') %>
 
 
-    <div>
-        <div></div>
-        <div></div>
-    </div>
-
-    <div class="gallery">
-        <div class="galleryPic">
-            <p>aaaaa</p>
-            <!-- <img src="/pictures/a88c12eebf8994ac86f17d4ba4b487a057517207.jpg" alt="" id="myFirstPic" > -->
+    <% if(typeof user=="object" ) { %>
+        <div class="welcomeModal" id="welcomeModal">
+            <h1 class="">Welcome back <%= user.name %>!</h1>
+            <button type="button" class="p-3"
+                onclick="document.getElementById('welcomeModal').style.display='none'">X</button>
         </div>
-        
+
+
+        <% } %>
+
+
+
+<div class="offer">
+    <div class="offerText">
+        <a href="/products">GET 50% OFF THIS MONTH ON ALL SELECTED PRODUCTS!</a>
     </div>
+    <div class="offerContent">
+        <img src="/pictures/offer.png" id="offerPic" onclick="window.location.href='/products'">
+    </div>
+</div>
+
+<div class="aboutShop">
+    <div class="a1">
+        <h2>SO GOOD</h2>
+        <p> Our products are made from high-quality materials meeting our customer demands.  </p>
+    </div>
+    <div class="a2">
+        <h2>SO DIVINE</h2>
+        <p>We are dedicated to helping you improve your health and beauty through the benefits of our products. </p>
+    </div>
+    <div class="a3">
+        <h2>SO PRACTICAL</h2>
+        <p>Our products are dedicated to all age categories. Easy to use but at the same time very practical, our products are designed to meet customer requirements.</p>
+    </div>
+</div>
+
+<div class="shopImg">
+    <img src="/pictures/gym-floor.jpg">
+</div>
+
+<div class="contactDetails mt-4 mb-5">
+    <a href="/" class="btn btn-secondary btn-block">GymShop</a>
+    <a href="/contact" class="btn btn-secondary btn-block">Contact</a>
 </div>
