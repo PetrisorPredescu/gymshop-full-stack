@@ -12,7 +12,7 @@ const db = require('./config/keys').mongoURI;
 
 //MongoDB test connection
 mongoose.connect(db,{ useNewUrlParser: true ,useUnifiedTopology: true})
-  .then(() => console.log('MongoDB Connected'))
+  .then(() => console.log('MongoDB Connected!'))
   .catch(err => console.log(err));
 
 
@@ -49,8 +49,17 @@ app.use('/', require('./routes/index.js'));
 app.use('/users', require('./routes/users.js'));
 app.use('/config', express.static('./config'));
 app.use('/pictures', express.static('./pictures'));
+<<<<<<< HEAD
 
 
 app.listen('4444', console.log("Server Online!"));
+=======
+>>>>>>> 0a1a5cb7eea1742cdd374ec7b05fb216572c03f5
 
-// http://localhost:4444
+
+app.all('*', (req, res) => {
+  res.render("./page_not_found.ejs")
+})
+
+const PORT = process.env.PORT || 4444;
+app.listen(PORT, console.log(`Server running on ${PORT}`));
